@@ -1,5 +1,5 @@
 ---
 # Test htop is installed
-- shell: /usr/bin/htop -v
-  register: htop
-  changed_when: "htop.rc != 0"
+- shell: ansible --version
+  register: ansible
+  changed_when: "ansible.rc != 0"

@@ -1,17 +1,24 @@
 ---
-- name: Installing pre-packages
+- name: Install apt repositories
+  apt_repository:
+    repo: "{{ item.repo }}"
+    state: "{{ item.state | default(apt_repository_state) }}"
+  with_items: "{{ apt_repository }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install pre-packages
   package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(pre_package_state) }}"
   with_items: "{{ pre_package }}"
 
-- name: Installing packages
+- name: Install packages
   package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(package_state) }}"
   with_items: "{{ package }}"
 
-- name: Installing post-packages
+- name: Install post-packages
   package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(post_package_state) }}"

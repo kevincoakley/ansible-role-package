@@ -24,7 +24,7 @@
 
   vars:
     - package:
-      - name: htop
+      - name: ansible
 
   roles:
     - ansible-role-package
