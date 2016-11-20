@@ -1,5 +1,51 @@
 ---
-- hosts: localhost
-  remote_user: root
+- name: Start the Docker containers
+  hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - docker_containers.yml
+
+  vars:
+    - container_state: reloaded
+    - container_privileged: true
+
+  roles:
+    - docker
+
+  tags:
+    - docker-start
+
+
+- name: Test the Package role for CentOS and Ubuntu systems
+  hosts: package
+  become: yes
+  become_method: sudo
+
+  vars:
+    - package:
+      - name: htop
+
   roles:
     - ansible-role-package
+    - package-test
+
+  tags:
+    - package
+
+
+- name: Stop the Docker containers
+  hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - docker_containers.yml
+
+  vars:
+    - container_state: absent
+
+  roles:
+    - docker
+
+  tags:
+    - docker-stop

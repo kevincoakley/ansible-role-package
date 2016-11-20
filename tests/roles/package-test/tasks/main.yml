@@ -1,0 +1,5 @@
+---
+# Test htop is installed
+- shell: /usr/bin/htop -v
+  register: htop
+  changed_when: "htop.rc != 0"
