@@ -1,2 +1,18 @@
 ---
-# tasks file for ansible-role-package
+- name: Installing pre-packages
+  package:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default(pre_package_state) }}"
+  with_items: "{{ pre_package }}"
+
+- name: Installing packages
+  package:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default(package_state) }}"
+  with_items: "{{ package }}"
+
+- name: Installing post-packages
+  package:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default(post_package_state) }}"
+  with_items: "{{ post_package }}"

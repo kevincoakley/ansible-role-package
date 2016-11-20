@@ -1,2 +1,7 @@
 ---
-# defaults file for ansible-role-package
+pre_package: []
+pre_package_state: present
+package: []
+package_state: present
+post_package: []
+post_package_state: present
