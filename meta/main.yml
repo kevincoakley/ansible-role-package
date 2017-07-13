@@ -3,7 +3,7 @@ galaxy_info:
   description: Manage packages for CentOS 7, Ubuntu 14.04 and Ubuntu 16.04
 
   license: BSD
-  min_ansible_version: 2.0
+  min_ansible_version: 2.1
   platforms:
   - name: EL
     versions:

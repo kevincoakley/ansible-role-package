@@ -7,7 +7,7 @@
     - docker_containers.yml
 
   vars:
-    - container_state: reloaded
+    - container_state: started
     - container_privileged: true
 
   roles:
@@ -25,6 +25,12 @@
   vars:
     - package:
       - name: ansible
+    - yum_repository:
+      - name: jenkins
+        description: Jenkins
+        baseurl: http://pkg.jenkins.io/redhat
+        gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+        gpgcheck: 1
 
   roles:
     - ansible-role-package
