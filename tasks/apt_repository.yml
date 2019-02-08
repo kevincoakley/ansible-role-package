@@ -1,0 +1,6 @@
+---
+- name: Install apt repositories
+  apt_repository:
+    repo: "{{ item.repo }}"
+    state: "{{ item.state | default(apt_repository_state) }}"
+  with_items: "{{ apt_repository }}"
