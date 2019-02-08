@@ -8,6 +8,7 @@
 - name: Get the md5 hash for /etc/yum.repos.d/jenkins.repo
   stat:
     path: /etc/yum.repos.d/jenkins.repo
+    checksum_algorithm: md5
   register: jenkins
   when: ansible_os_family == "RedHat"
 
@@ -15,4 +16,4 @@
   fail: msg="md5 hashes don't match"
   when:
    - ansible_os_family == "RedHat"
-   - jenkins.stat.md5 != "47918dacb93bfac3c8e29420678e8fa0"
+   - jenkins.stat.checksum != "47918dacb93bfac3c8e29420678e8fa0"
