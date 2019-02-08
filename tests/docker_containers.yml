@@ -1,7 +1,7 @@
 ---
 docker_containers:
-  - name: xenial-system
-    image: kevincoakley/ubuntu16.04-systemd
+  - name: bionic-system
+    image: kevincoakley/ubuntu18.04-systemd
     ports:
       - "2200:22"
     volumes:
@@ -12,7 +12,3 @@ docker_containers:
       - "2222:22"
     volumes:
       - "/sys/fs/cgroup:/sys/fs/cgroup"
-  - name: trusty-system
-    image: ubuntu-upstart:14.04
-    ports:
-      - "2244:22"
