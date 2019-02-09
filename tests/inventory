@@ -5,6 +5,8 @@ ansible_ssh_pass=docker
 ansible_host=127.0.0.1
 
 [package]
-xenial-system ansible_ssh_host=127.0.0.1 ansible_port=2200
+bionic-system ansible_ssh_host=127.0.0.1 ansible_port=2200
 centos-system ansible_ssh_host=127.0.0.1 ansible_port=2222
-trusty-system ansible_ssh_host=127.0.0.1 ansible_port=2244 ansible_ssh_pass=docker.io
+
+[package-centos]
+centos-system ansible_ssh_host=127.0.0.1 ansible_port=2222
