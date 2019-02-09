@@ -9,3 +9,5 @@ package: []
 package_state: present
 post_package: []
 post_package_state: present
+yum_versionlock: []
+yum_versionlock_state: present

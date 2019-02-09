@@ -1,0 +1,28 @@
+---
+# Test that the jenkins.repo file has the correct md5 hash
+- name: Get the md5 hash for /etc/yum.repos.d/jenkins.repo
+  stat:
+    path: /etc/yum.repos.d/jenkins.repo
+    checksum_algorithm: md5
+  register: jenkins
+
+- name: Verify the md5 hash matches
+  fail:
+    msg: "md5 hashes don't match"
+  when: jenkins.stat.checksum != "47918dacb93bfac3c8e29420678e8fa0"
+
+# Test that yum_versionlock works
+- name: Install mariadb latest
+  package:
+    name: mariadb
+    state: latest
+
+- name: Get mariadb version
+  shell: mysql --version
+  register: mariadb_version
+  changed_when: false
+
+- name: Verify mariadb version is still 5.5.60
+  fail:
+    msg: mariadb version is not 5.5.60
+  when: "'5.5.60' not in mariadb_version.stdout"

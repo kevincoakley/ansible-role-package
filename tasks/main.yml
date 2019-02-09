@@ -24,3 +24,7 @@
     name: "{{ item.name }}"
     state: "{{ item.state | default(post_package_state) }}"
   with_items: "{{ post_package }}"
+
+- name: include yum_versionlock.yml
+  include_tasks: yum_versionlock.yml
+  when: ansible_os_family == "RedHat"

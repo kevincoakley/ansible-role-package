@@ -7,3 +7,6 @@ ansible_host=127.0.0.1
 [package]
 bionic-system ansible_ssh_host=127.0.0.1 ansible_port=2200
 centos-system ansible_ssh_host=127.0.0.1 ansible_port=2222
+
+[package-centos]
+centos-system ansible_ssh_host=127.0.0.1 ansible_port=2222
