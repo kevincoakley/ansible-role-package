@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    - package:
+        - name: ansible
+
+  roles:
+    - role: ansible-role-package
+
+  post_tasks:
+    - name: Test is ansible was installed
+      shell: ansible --version
+      register: ansible
+      changed_when: "ansible.rc != 0"

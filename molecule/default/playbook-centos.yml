@@ -1,0 +1,23 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    - pre_package:
+        - name: epel-release
+        - name: centos-release-openstack-rocky
+    - package:
+        - name: mariadb-5.5.60
+    - yum_repository:
+        - name: jenkins
+          description: Jenkins
+          baseurl: http://pkg.jenkins.io/redhat
+          gpgkey: https://jenkins-ci.org/redhat/jenkins-ci.org.key
+          gpgcheck: 1
+    - yum_versionlock:
+        - name: mariadb
+          version: 5.5.60
+
+  roles:
+    - role: ansible-role-package
