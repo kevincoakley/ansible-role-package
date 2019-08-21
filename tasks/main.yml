@@ -11,18 +11,24 @@
   package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(pre_package_state) }}"
+  when:
+    - item.ansible_os_family is undefined or ansible_os_family == item.ansible_os_family
   with_items: "{{ pre_package }}"
 
 - name: Install packages
   package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(package_state) }}"
+  when:
+    - item.ansible_os_family is undefined or ansible_os_family == item.ansible_os_family
   with_items: "{{ package }}"
 
 - name: Install post-packages
   package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(post_package_state) }}"
+  when:
+    - item.ansible_os_family is undefined or ansible_os_family == item.ansible_os_family
   with_items: "{{ post_package }}"
 
 - name: include yum_versionlock.yml

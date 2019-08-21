@@ -6,12 +6,31 @@
   vars:
     - package:
         - name: ansible
+        - name: rpmlint
+          ansible_os_family: RedHat
+        - name: apt-clone
+          ansible_os_family: Debian
 
   roles:
     - role: ansible-role-package
 
   post_tasks:
-    - name: Test is ansible was installed
+    - name: Test if ansible was installed
       shell: ansible --version
       register: ansible
       changed_when: "ansible.rc != 0"
+      failed_when: "ansible.rc != 0"
+
+    - name: Test if rpmlint was installed
+      shell: rpmlint -h
+      register: rpm
+      changed_when: "rpm.rc != 0"
+      failed_when: "rpm.rc != 0"
+      when: ansible_os_family == "RedHat"
+
+    - name: Test if apt-clone was installed
+      shell: apt-clone -h
+      register: apt
+      changed_when: "apt.rc != 0"
+      failed_when: "apt.rc != 0"
+      when: ansible_os_family == "Debian"
