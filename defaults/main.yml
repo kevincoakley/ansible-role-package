@@ -1,4 +1,6 @@
 ---
+apt_key: []
+apt_key_state: present
 apt_repository: []
 apt_repository_state: present
 yum_repository: {}
