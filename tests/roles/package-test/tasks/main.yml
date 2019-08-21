@@ -1,5 +1,0 @@
----
-# Test ansible is installed
-- shell: ansible --version
-  register: ansible
-  changed_when: "ansible.rc != 0"

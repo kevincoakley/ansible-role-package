@@ -1,6 +1,30 @@
 ---
+- name: Install packages required for adding the apt repository
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - gpg
+
+- name: Install apt key
+  apt_key:
+    data: "{{ item.data | default(omit) }}"
+    file: "{{ item.file | default(omit) }}"
+    id: "{{ item.id | default(omit) }}"
+    keyring: "{{ item.keyring | default(omit) }}"
+    keyserver: "{{ item.keyserver | default(omit) }}"
+    state: "{{ item.state | default(apt_key_state) }}"
+    url: "{{ item.url | default(omit) }}"
+    validate_certs: "{{ item.validate_certs | default(omit) }}"
+  with_items: "{{ apt_key }}"
+
 - name: Install apt repositories
   apt_repository:
+    codename: "{{ item.codename | default(omit) }}"
+    filename: "{{ item.filename | default(omit) }}"
+    mode: "{{ item.mode | default(omit) }}"
     repo: "{{ item.repo }}"
     state: "{{ item.state | default(apt_repository_state) }}"
+    update_cache: "{{ item.update_cache | default(omit) }}"
+    validate_certs: "{{ item.validate_certs | default(omit) }}"
   with_items: "{{ apt_repository }}"

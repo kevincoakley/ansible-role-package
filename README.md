@@ -3,7 +3,7 @@ ansible-role-package
 
 [![Build Status](https://travis-ci.org/kevincoakley/ansible-role-package.svg?branch=master)](https://travis-ci.org/kevincoakley/ansible-role-package)
 
-Manage packages for CentOS 7, Ubuntu 14.04 and Ubuntu 16.04
+Manage packages for CentOS 7 and Ubuntu 16.04
 
 Requirements
 ------------
