@@ -1,15 +1,17 @@
 ---
-apt_key: []
+apt_key: {}
 apt_key_state: present
-apt_repository: []
+apt_repository: {}
 apt_repository_state: present
 yum_repository: {}
 yum_repository_state: present
-pre_package: []
+pre_package: {}
 pre_package_state: present
-package: []
+package: {}
 package_state: present
-post_package: []
+post_package: {}
 post_package_state: present
-yum_versionlock: []
+yum_versionlock: {}
 yum_versionlock_state: present
+apt_mark_hold: {}
+apt_mark_hold_state: present

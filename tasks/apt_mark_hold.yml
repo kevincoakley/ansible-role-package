@@ -1,0 +1,16 @@
+---
+- name: get a list all held packages
+  command: "/usr/bin/apt-mark showhold"
+  changed_when: false
+  register: held_package_list
+  until: held_package_list is succeeded
+
+- name: add packages to the list of held packages
+  command: "/usr/bin/apt-mark hold {{ item.name }}"
+  with_items: "{{ apt_mark_hold }}"
+  when: item['name'] not in held_package_list.stdout_lines and (item['state'] | default(post_package_state)) == "present"
+
+- name: remove packages from the list of held packages
+  command: "/usr/bin/apt-mark unhold {{ item.name }}"
+  with_items: "{{ apt_mark_hold }}"
+  when: item['name'] in held_package_list.stdout_lines and (item['state'] | default(post_package_state)) == "absent"

@@ -11,6 +11,8 @@
           update_cache: true
     - package:
         - name: postgresql-11
+    - apt_mark_hold:
+        - name: postgresql-11
 
   roles:
     - role: ansible-role-package

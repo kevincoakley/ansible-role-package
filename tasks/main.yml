@@ -1,11 +1,11 @@
 ---
 - name: include apt_repository.yml
   include_tasks: apt_repository.yml
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and (apt_repository | length) > 0
 
 - name: include yum_repository.yml
   include_tasks: yum_repository.yml
-  when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat" and (yum_repository | length) > 0
 
 - name: Install pre-packages
   package:
@@ -31,6 +31,10 @@
     - item.ansible_os_family is undefined or ansible_os_family == item.ansible_os_family
   with_items: "{{ post_package }}"
 
+- name: include apt_mark_hold.yml
+  include_tasks: apt_mark_hold.yml
+  when: ansible_os_family == "Debian" and (apt_mark_hold | length) > 0
+
 - name: include yum_versionlock.yml
   include_tasks: yum_versionlock.yml
-  when: ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat" and (yum_versionlock | length) > 0
