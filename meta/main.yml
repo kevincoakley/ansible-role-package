@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: package
   author: Kevin Coakley
   description: Manage packages for CentOS 7 and Ubuntu 16.04
 
