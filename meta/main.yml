@@ -2,7 +2,7 @@
 galaxy_info:
   role_name: package
   author: Kevin Coakley
-  description: Manage packages for CentOS 7 and Ubuntu 16.04
+  description: Manage packages for CentOS and Ubuntu
 
   license: BSD
   min_ansible_version: 2.1
