@@ -7,7 +7,7 @@
   until: install_versionlock_result is success
   retries: 10
   delay: 2
-  when: 
+  when:
     - ansible_distribution_major_version == "7"
 
 - name: Install dnf-plugin-versionlock
@@ -18,7 +18,7 @@
   until: install_versionlock_result is success
   retries: 10
   delay: 2
-  when: 
+  when:
     - ansible_distribution_major_version >= "8"
 
 - name: Add packname and version to versionlock.list (RHEL 7)
@@ -28,7 +28,7 @@
     line: "{{ item.epoch | default('0') }}:{{ item.name }}-{{ item.version }}-*.*"
     state: "{{ item.state | default(yum_versionlock_state) }}"
   with_items: "{{ yum_versionlock }}"
-  when: 
+  when:
     - ansible_distribution_major_version == "7"
 
 - name: Add packname and version to versionlock.list
@@ -38,5 +38,5 @@
     line: "{{ item.name }}-{{ item.version }}-*.*"
     state: "{{ item.state | default(yum_versionlock_state) }}"
   with_items: "{{ yum_versionlock }}"
-  when: 
+  when:
     - ansible_distribution_major_version >= "8"
