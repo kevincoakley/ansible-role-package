@@ -6,7 +6,6 @@
   vars:
     - pre_package:
         - name: epel-release
-        - name: centos-release-openstack-rocky
     - yum_repository:
         - name: jenkins
           description: Jenkins
