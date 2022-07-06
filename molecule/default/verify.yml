@@ -5,7 +5,7 @@
 
   tasks:
     - name: Test if htop was installed
-      shell: htop -v
+      shell: htop -h
       register: htop
       changed_when: "htop.rc != 0"
       failed_when: "htop.rc != 0"
