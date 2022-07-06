@@ -7,6 +7,13 @@
   include_tasks: yum_repository.yml
   when: ansible_os_family == "RedHat" and (yum_repository | length) > 0
 
+- name: Update the apt repository cache
+  apt:
+    update_cache: true
+    cache_valid_time: 3600
+    force_apt_get: true
+  when: ansible_os_family == "Debian"
+
 - name: Install pre-packages
   package:
     name: "{{ item.name }}"
