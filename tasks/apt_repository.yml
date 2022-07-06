@@ -5,6 +5,7 @@
     state: present
   with_items:
     - gpg
+    - gpg-agent
 
 - name: Install apt key
   apt_key:
