@@ -7,11 +7,36 @@
   until: install_versionlock_result is success
   retries: 10
   delay: 2
+  when:
+    - ansible_distribution_major_version == "7"
 
-- name: Add packname and version to versionlock.list
+- name: Install dnf-plugin-versionlock
+  package:
+    name: python3-dnf-plugin-versionlock
+    state: present
+  register: install_versionlock_result
+  until: install_versionlock_result is success
+  retries: 10
+  delay: 2
+  when:
+    - ansible_distribution_major_version >= "8"
+
+- name: Add packname and version to versionlock.list (RHEL 7)
   lineinfile:
     path: /etc/yum/pluginconf.d/versionlock.list
     regexp: "^{{ item.epoch | default('0') }}:{{ item.name }}"
     line: "{{ item.epoch | default('0') }}:{{ item.name }}-{{ item.version }}-*.*"
     state: "{{ item.state | default(yum_versionlock_state) }}"
   with_items: "{{ yum_versionlock }}"
+  when:
+    - ansible_distribution_major_version == "7"
+
+- name: Add packname and version to versionlock.list
+  lineinfile:
+    path: /etc/yum/pluginconf.d/versionlock.list
+    regexp: "^{{ item.name }}"
+    line: "{{ item.name }}-{{ item.version }}-*.*"
+    state: "{{ item.state | default(yum_versionlock_state) }}"
+  with_items: "{{ yum_versionlock }}"
+  when:
+    - ansible_distribution_major_version >= "8"

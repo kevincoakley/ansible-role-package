@@ -1,25 +1,14 @@
 ---
-- name: Converge
+- name: Verify
   hosts: all
   become: true
 
-  vars:
-    - package:
-        - name: ansible
-        - name: rpmlint
-          ansible_os_family: RedHat
-        - name: apt-clone
-          ansible_os_family: Debian
-
-  roles:
-    - role: ansible-role-package
-
-  post_tasks:
-    - name: Test if ansible was installed
-      shell: ansible --version
-      register: ansible
-      changed_when: "ansible.rc != 0"
-      failed_when: "ansible.rc != 0"
+  tasks:
+    - name: Test if htop was installed
+      shell: htop -h
+      register: htop
+      changed_when: "htop.rc != 0"
+      failed_when: "htop.rc != 0"
 
     - name: Test if rpmlint was installed
       shell: rpmlint -h
