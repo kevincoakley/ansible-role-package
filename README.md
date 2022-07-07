@@ -1,7 +1,7 @@
 ansible-role-package
 ====================
 
-[![Build Status](https://travis-ci.org/kevincoakley/ansible-role-package.svg?branch=master)](https://travis-ci.org/kevincoakley/ansible-role-package)
+![](https://github.com/kevincoakley/ansible-role-package/workflows/Molecule%20Test/badge.svg)
 
 Manage packages for CentOS and Ubuntu
 
