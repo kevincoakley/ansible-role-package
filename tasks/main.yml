@@ -13,6 +13,7 @@
     cache_valid_time: 3600
     force_apt_get: true
   when: ansible_os_family == "Debian"
+  changed_when: false
 
 - name: Install pre-packages
   package:
