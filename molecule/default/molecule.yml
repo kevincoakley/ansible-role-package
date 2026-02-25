@@ -30,9 +30,9 @@ provisioner:
       ALLOW_BROKEN_CONDITIONALS: true
   env:
     ANSIBLE_ROLES_PATH: "${MOLECULE_PROJECT_DIRECTORY}/.."
-  log: true
+  log: false
   options:
-    vvv: true
+    vvv: false
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
 scenario:
