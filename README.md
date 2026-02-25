@@ -55,6 +55,10 @@ Install Ansible on Ubuntu:
       roles:
         - ansible-role-package
 
+Workaround for Docker Desktop on Mac
+----------------------------------
+
+    export DOCKER_HOST="unix://${HOME}/.docker/run/docker.sock"
 
 License
 -------

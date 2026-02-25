@@ -4,20 +4,20 @@
   become: true
 
   vars:
-    - package:
-        - name: htop
-        - name: rpmlint
-          ansible_os_family: RedHat
-        - name: apt-clone
-          ansible_os_family: Debian
+    package:
+      - name: htop
+      - name: rpmlint
+        ansible_os_family: RedHat
+      - name: apt-clone
+        ansible_os_family: Debian
 
   roles:
     - role: ansible-role-package
 
 - name: include CentOS specific tasks
   import_playbook: converge-centos.yml
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts['os_family'] == 'RedHat'
 
 - name: include Ubuntu specific tasks
   import_playbook: converge-ubuntu.yml
-  when: ansible_os_family == "Debian"
+  when: ansible_facts['os_family'] == 'Debian'

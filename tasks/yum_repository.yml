@@ -1,6 +1,6 @@
 ---
 - name: Install yum repositories
-  yum_repository:
+  ansible.builtin.yum_repository:
     # Required
     name: "{{ item.name }}"
     state: "{{ item.state | default(yum_repository_state) }}"

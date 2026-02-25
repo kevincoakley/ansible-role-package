@@ -1,6 +1,6 @@
 ---
 - name: Install packages required for adding the apt repository
-  package:
+  ansible.builtin.package:
     name: "{{ item }}"
     state: present
   with_items:
@@ -8,7 +8,7 @@
     - gpg-agent
 
 - name: Install apt key
-  apt_key:
+  ansible.builtin.apt_key:
     data: "{{ item.data | default(omit) }}"
     file: "{{ item.file | default(omit) }}"
     id: "{{ item.id | default(omit) }}"
@@ -20,7 +20,7 @@
   with_items: "{{ apt_key }}"
 
 - name: Install apt repositories
-  apt_repository:
+  ansible.builtin.apt_repository:
     codename: "{{ item.codename | default(omit) }}"
     filename: "{{ item.filename | default(omit) }}"
     mode: "{{ item.mode | default(omit) }}"

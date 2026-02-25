@@ -4,19 +4,19 @@
   become: true
 
   vars:
-    - pre_package:
-        - name: epel-release
-    - yum_repository:
-        - name: jenkins
-          description: Jenkins
-          baseurl: http://pkg.jenkins.io/redhat
-          gpgkey: https://pkg.jenkins.io/redhat/jenkins.io.key
-          gpgcheck: 1
-    - package:
-        - name: jenkins-2.340
-    - yum_versionlock:
-        - name: jenkins
-          version: 2.340
+    pre_package:
+      - name: epel-release
+    yum_repository:
+      - name: jenkins
+        description: Jenkins
+        baseurl: http://pkg.jenkins.io/redhat
+        gpgkey: https://pkg.jenkins.io/rpm-stable/jenkins.io-2026.key
+        gpgcheck: 1
+    package:
+      - name: jenkins-2.550
+    yum_versionlock:
+      - name: jenkins
+        version: 2.550
 
   roles:
     - role: ansible-role-package

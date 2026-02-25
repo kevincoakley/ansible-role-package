@@ -6,16 +6,18 @@ galaxy_info:
   description: Manage packages for CentOS and Ubuntu
 
   license: BSD
-  min_ansible_version: "2.9"
+  min_ansible_version: "2.12"
   platforms:
     - name: EL
       versions:
-        - "7"
         - "8"
+        - "9"
+        - "10"
     - name: Ubuntu
       versions:
-        - "focal"
+        - "noble"
         - "jammy"
+        - "focal"
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.

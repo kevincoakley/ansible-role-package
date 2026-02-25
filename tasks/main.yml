@@ -1,48 +1,57 @@
 ---
-- name: include apt_repository.yml
-  include_tasks: apt_repository.yml
-  when: ansible_os_family == "Debian" and (apt_repository | length) > 0
+- name: Include apt_repository.yml
+  ansible.builtin.include_tasks: apt_repository.yml
+  when:
+    - ansible_facts['os_family'] == 'Debian'
+    - (apt_repository | length) > 0
 
-- name: include yum_repository.yml
-  include_tasks: yum_repository.yml
-  when: ansible_os_family == "RedHat" and (yum_repository | length) > 0
+- name: Include yum_repository.yml
+  ansible.builtin.include_tasks: yum_repository.yml
+  when:
+    - ansible_facts['os_family'] == 'RedHat'
+    - (yum_repository | length) > 0
 
 - name: Update the apt repository cache
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 3600
     force_apt_get: true
-  when: ansible_os_family == "Debian"
+  when:
+    - ansible_facts['os_family'] == 'Debian'
   changed_when: false
 
 - name: Install pre-packages
-  package:
+  ansible.builtin.package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(pre_package_state) }}"
   when:
-    - item.ansible_os_family is undefined or ansible_os_family == item.ansible_os_family
+    - item.ansible_os_family is not defined or ansible_facts['os_family'] == item.ansible_os_family
   with_items: "{{ pre_package }}"
 
 - name: Install packages
-  package:
+  ansible.builtin.package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(package_state) }}"
   when:
-    - item.ansible_os_family is undefined or ansible_os_family == item.ansible_os_family
+    - item.ansible_os_family is not defined or ansible_facts['os_family'] == item.ansible_os_family
   with_items: "{{ package }}"
 
 - name: Install post-packages
-  package:
+  ansible.builtin.package:
     name: "{{ item.name }}"
     state: "{{ item.state | default(post_package_state) }}"
   when:
-    - item.ansible_os_family is undefined or ansible_os_family == item.ansible_os_family
+    - item.ansible_os_family is not defined or ansible_facts['os_family'] == item.ansible_os_family
   with_items: "{{ post_package }}"
 
-- name: include apt_mark_hold.yml
-  include_tasks: apt_mark_hold.yml
-  when: ansible_os_family == "Debian" and (apt_mark_hold | length) > 0
+- name: Include apt_mark_hold.yml
+  ansible.builtin.include_tasks: apt_mark_hold.yml
+  when:
+    - ansible_facts['os_family'] == 'Debian'
+    - (apt_mark_hold | default([]) | length) > 0
 
-- name: include yum_versionlock.yml
-  include_tasks: yum_versionlock.yml
-  when: ansible_os_family == "RedHat" and (yum_versionlock | length) > 0
+- name: Include yum_versionlock.yml
+  ansible.builtin.include_tasks: yum_versionlock.yml
+  when:
+    - ansible_facts['os_family'] == 'RedHat'
+    - (yum_versionlock | default([]) | length) > 0

@@ -4,15 +4,15 @@
   become: true
 
   vars:
-    - apt_key:
-        - url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    - apt_repository:
-        - repo: deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main
-          update_cache: true
-    - package:
-        - name: postgresql-11
-    - apt_mark_hold:
-        - name: postgresql-11
+    apt_key:
+      - url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    apt_repository:
+      - repo: deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main
+        update_cache: true
+    package:
+      - name: postgresql-11
+    apt_mark_hold:
+      - name: postgresql-11
 
   roles:
     - role: ansible-role-package
